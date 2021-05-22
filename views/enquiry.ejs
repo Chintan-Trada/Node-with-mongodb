@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partials/head'); %>
+        
+
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+
+            <%- include('./partials/header'); %>
+           
+            <div class="content-page">
+                <div class="content">
+
+                    <div class="container-fluid">
+                        <!-- <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="p-2">
+                                                <form class="form-horizontal" action="/enquiry" method="POST" name="enquiryForm" id="enquiryForm">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="simpleinput">first Name</label>
+                                                        <div class="col-md-10">
+                                                            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Category Name" required >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="simpleinput">last Name</label>
+                                                        <div class="col-md-10">
+                                                            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Category Name" required >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="simpleinput">Email</label>
+                                                        <div class="col-md-10">
+                                                            <input type="email" name="email" id="email" class="form-control" placeholder="Category Name" required >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="simpleinput">categoryname</label>
+                                                        <div class="col-md-10">
+                                                            <input type="text" name="categoryname" id="categoryname" class="form-control" placeholder="Category Name" required >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="simpleinput">Status</label>
+                                                        <div class="col-md-10">
+                                                            <input type="text" name="status" id="categoryname" class="form-control" placeholder="Category Name"  >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="simpleinput">conetact no</label>
+                                                        <div class="col-md-10">
+                                                            <input type="text" name="mbileNo" id="mbileNo" class="form-control" placeholder="Category Name" required >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="simpleinput">commect</label>
+                                                        <div class="col-md-10">
+                                                            <input type="text" name="comment" id="comment" class="form-control" placeholder="Category Name" >
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="text-center mt-3">
+                                                        <button type="reset" class="btn btn-bordered-danger waves-effect  width-md waves-light">Cancle</button>
+                                                        &nbsp;
+                                                        <button type="submit" class="btn btn-bordered-success waves-effect  width-md waves-light">Save</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>     -->
+                        <div class="row">
+                            <div class="col-12">
+                                
+                                <div class="card-box table-responsive">
+                                    <div class="d-flex justify-content-end mb-2">
+                                        <button type="button" class="btn btn-bordered-danger waves-effect  width-md waves-light" id="delete">Delete</button>&nbsp;
+                                    </div>
+                                    <table id="datatable" class="table table-bordered dt-responsive nowrap text-center">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 10%; "> </th>
+                                            <th style="width: 15%; ">Name</th>
+                                            <th style="width: 15%; ">Status</th>
+                                            <th style="width: 15%; ">Mobile</th>
+                                            <th style="width: 20%; ">Date</th>
+                                            <th style="width: 20%; ">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for(var i=0; i < enquiry.length; i++) { %>
+                                                <tr>
+                                                    <td><input type="checkbox" class="select" value="<%= enquiry[i].id %>"></td>
+                                                    <td><%= enquiry[i].firstname %> <%= enquiry[i].lastname %></td>
+                                                    <td class="<%= enquiry[i].status === 'Pandding' ? 'red' : 'green' %>"><%= enquiry[i].status %></td>
+                                                    <td><%= enquiry[i].mbileNo %></td>
+                                                    <td><%= enquiry[i].date.toDateString() %></td>
+                                                    <td>
+                                                        <a href="enquiry-view?id=<%= enquiry[i].id %>">
+                                                            <button class="btn btn-icon waves-effect btn-primary" > <i class="fas fa-eye"></i> </button>&nbsp;
+                                                        </a> 
+                                                        <a href="enquiry-edit?id=<%= enquiry[i].id %>">
+                                                            <button class="btn btn-icon waves-effect btn-success" > <i class="fas fa-edit"></i> </button>&nbsp;
+                                                        </a> 
+                                                        <a href='enquiry/<%= enquiry[i].id %>'>
+                                                            <button class="btn btn-icon waves-effect btn-danger" id="delete-button"  > <i class="fas fa-trash"></i> </button>&nbsp;
+                                                        </a> 
+                                                        
+                                                    </td>
+                                                </tr>
+                                             <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+        
+        <%- include('./partials/scprit'); %>
+        <script>
+            let btnShow = document.getElementById('delete');
+            let checkbox=[];
+
+            btnShow.addEventListener('click', _=>{
+                let check = document.querySelectorAll('input[type="checkbox"]:checked');
+                for(let i=0; i< check.length; i++){
+                    checkbox.push(check[i].value)
+                }
+                console.log(check.length);
+                console.log(checkbox);
+
+                fetch('/enquiry', {
+                    method: 'delete',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: checkbox
+                    })
+                })
+                .then(res => {
+                    if (res.ok) return res.json()
+                })
+                .then(response => {
+                    window.location.reload(true)
+                })
+            });
+        </script>
+        
+    </body>
+</html>

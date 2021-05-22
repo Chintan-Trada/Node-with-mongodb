@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partials/head'); %>
+
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+
+            <%- include('./partials/header'); %>
+
+            <div class="content-page">
+                <div class="content">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-4 col-md-4 col-12">
+                                    <div class="card-box widget-user">
+                                        <div class="text-center">
+                                            <h2 class="font-weight-normal text-primary" data-plugin="counterup"><%= category %></h2>
+                                            <h5>Category</h5>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div class="col-xl-4 col-md-4 col-12">
+                                <div class="card-box widget-user">
+                                    <div class="text-center">
+                                        <h2 class="font-weight-normal text-pink" data-plugin="counterup"><%= portfolio %></h2>
+                                        <h5>Portfolio</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 col-12">
+                                <div class="card-box widget-user">
+                                    <div class="text-center">
+                                        <h2 class="font-weight-normal text-primary" data-plugin="counterup"><%= testonomial %></h2>
+                                        <h5>Testomomial </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> 
+
+                </div> 
+            </div>
+
+        </div>
+        
+       
+
+        <%- include('./partials/scprit'); %>
+        
+    </body>
+</html>

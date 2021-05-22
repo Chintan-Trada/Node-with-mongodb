@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partials/head'); %>
+
+    </head>
+
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <%- include('./partials/header'); %>
+           
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="p-2">
+                                                <% for(var i=0; i < category.length; i++) { %>
+                                                <form class="form-horizontal" action="/category-view?id=<%= category[i].id %>" method="POST" name="categoryform" id="categoryform">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="simpleinput">Category Name</label>
+                                                        <div class="col-md-10">
+                                                            <input type="text" name="categoryname" id="categoryname" class="form-control" placeholder="Category Name" readonly value="<%= category[i].categoryname %>" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-2 col-form-label" for="example-textarea">Description</label>
+                                                        <div class="col-md-10">
+                                                            <textarea class="form-control"  name="description" id="description" rows="5" id="example-textarea" placeholder="Description" readonly required><%= category[i].description %></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center mt-3">
+                                                        <a href="/category">
+                                                            <button type="button" class="btn btn-bordered-danger waves-effect  width-md waves-light">Cancle</button>
+                                                        </a>
+                                                        &nbsp;
+                                                    </div>
+                                                </form>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+    
+                    
+                    </div> 
+
+                </div> 
+
+                
+            </div>
+
+            
+
+        </div>
+        <%- include('./partials/scprit'); %>
+        
+    </body>
+</html>
