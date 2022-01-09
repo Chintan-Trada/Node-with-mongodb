@@ -53,7 +53,7 @@ exports.Signup = (req,res) => {
 // })
   var data = {
     username:req.body.username,
-    password:hashPassword,
+    password:req.body.password,
     firstname:req.body.firstname,
     lastname:req.body.lastname,
     email:req.body.email,
@@ -66,9 +66,11 @@ exports.Signup = (req,res) => {
     User.create(data)
     .then((user) => {
         console.log("Dish Create:- " + user);
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json(user);
+            // res.statusCode = 200;
+            // res.setHeader('Content-Type', 'application/json');
+            // res.json(user);
+            res.redirect('login');
+
     },(err) => {
         res.json(err.message);
         console.log(err.message);
@@ -143,9 +145,12 @@ exports.LoginUser = (req, res) => {
 
 //Index
 exports.Index = (req,res) => {
-  
+  const id = req.user._id
   //Call Category
-  Category.find({})
+  
+  User.find({ _id: id })
+    .then((profile) => {
+      Category.find({})
   .then((category) => {
     //Call Portfolio
     Portfolio.find({})
@@ -154,7 +159,7 @@ exports.Index = (req,res) => {
       Testonomial.find({})
       .then((testonomial) => {
         // res.json([category.length, portfolio.length, testonomial.length])
-        res.render('index',{category:category.length, portfolio:portfolio.length, testonomial: testonomial.length});
+        res.render('index',{category:category.length, portfolio:portfolio.length, testonomial: testonomial.length, profile: profile});
       }).catch((err) => {
         console.error(err.message)
       }); 
@@ -166,6 +171,9 @@ exports.Index = (req,res) => {
   }).catch((err) => {
     console.error(err.message)
   });
+    }).catch((err) => {
+      console.log(err.message)  
+    });
   //End Category
 };
 

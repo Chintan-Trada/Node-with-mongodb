@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var multer = require('multer');
 
+const User = require('../models/user');
 const Portfolio = require('../models/protfolio');
 const { PortfolioValidation } = require('../validation/validation');
 
@@ -18,9 +19,16 @@ var upload = multer({ storage: storage }).single('image');
 
 
 exports.Portfolio = (req, res) => {
+  const id = req.user._id
+
   Portfolio.find({})
     .then((portfolio) => {
-      res.render('portfolio', { portfolio: portfolio });
+      User.find({ _id: id })
+        .then((profile) => {
+          res.render('portfolio', { portfolio: portfolio, profile: profile });
+        }).catch((err) => {
+          console.log(err.message)
+        });
     }).catch((err) => {
       console.log(err.message)
     });

@@ -3,10 +3,17 @@
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
-                <span class="pro-user-name ml-1">
-                    Nowak <i class="mdi mdi-chevron-down"></i> 
-                </span>
+                <% for(var i = 0; i < profile.length; i++) {%>
+                    <img src="data:image/<%=profile[i].image.contentType%>;base64,
+                    <%=profile[i].image.data.toString('base64')%>" height="150px"
+                    alt="user-img" title="<%= profile[i].username %>" class="rounded-circle img-thumbnail avatar-md">
+
+                    <span class="pro-user-name ml-1">
+                        <%= profile[i].username %>s <i class="mdi mdi-chevron-down"></i> 
+                    </span>
+                <% } %>
+                <!-- <img src="assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle"> -->
+                
             </a>
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">                            
 
@@ -63,11 +70,15 @@
     </ul>
 
 </div>
-
 <div class="left-side-menu">
     <div class="">
         <div class="user-box text-center">
-            <img src="assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail avatar-md">
+            <% for(var i = 0; i < profile.length; i++) {%>
+                <img src="data:image/<%=profile[i].image.contentType%>;base64,
+                <%=profile[i].image.data.toString('base64')%>" height="150px"
+                alt="user-img" title="<%= profile[i].username %>" class="rounded-circle img-thumbnail avatar-md">
+            <% } %>
+            <!-- <img src="assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail avatar-md"> -->
             <div class="dropdown">
                 <a href="#" class="user-name dropdown-toggle h5 mt-2 mb-1 d-block" data-toggle="dropdown"  aria-expanded="false">Nowak Helme</a>
                 <div class="dropdown-menu user-pro-dropdown">

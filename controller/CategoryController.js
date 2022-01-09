@@ -3,46 +3,51 @@ const Category = require('../models/category');
 const { categoryValidation } = require('../validation/validation');
 
 exports.Category = (req, res) => {
+  const id = req.user._id
   Category.find({})
     .then((category) => {
-      res.render('category', { category: category });
+      User.find({ _id: id })
+        .then((profile) => {
+          res.render('category', { category: category, profile: profile });
+        }).catch((err) => {
+          console.log(err.message)
+        });
     }).catch((err) => {
       console.log(err.message)
     });
-  // res.render('category')
 };
 
 exports.CategoryPost = (req, res) => {
-  console.log("Body",req.body);
+  console.log("Body", req.body);
   const { error } = categoryValidation(req.body);
   if (error) {
     Category.find({})
-    .then((category) => {
-      if (error.details[0].context.key == 'categoryname') {
-        console.log("Error 1")
-        console.log('error', error.details[0])
-        var err1 = error.details[0].message;
-        return res.render('category', {
-          error1: err1,
-          values: req.body,
-          category: category
-        });
-      }
-      if (error.details[0].context.key == 'description') {
-        console.log("Error 2")
-        console.log('error', error.details[0])
-        var err1 = error.details[0].message;
-        return res.render('category', {
-          error2: err1,
-          values: req.body,
-          category: category
-        });
-      }
-    }).catch((err) => {
-      console.log(err.message)
-    });  
+      .then((category) => {
+        if (error.details[0].context.key == 'categoryname') {
+          console.log("Error 1")
+          console.log('error', error.details[0])
+          var err1 = error.details[0].message;
+          return res.render('category', {
+            error1: err1,
+            values: req.body,
+            category: category
+          });
+        }
+        if (error.details[0].context.key == 'description') {
+          console.log("Error 2")
+          console.log('error', error.details[0])
+          var err1 = error.details[0].message;
+          return res.render('category', {
+            error2: err1,
+            values: req.body,
+            category: category
+          });
+        }
+      }).catch((err) => {
+        console.log(err.message)
+      });
   }
-  else{
+  else {
     var data = {
       categoryname: req.body.categoryname,
       description: req.body.description
@@ -60,7 +65,7 @@ exports.CategoryPost = (req, res) => {
         res.json(err.message);
         console.log(err.message);
       });
-  } 
+  }
 };
 
 exports.CategoryDelete = (req, res) => {
@@ -105,17 +110,17 @@ exports.CategoryUpdate = (req, res) => {
     });
 };
 
-exports.CategoryMultipleDelete = (req,res) => {
-  Category.deleteMany({_id: {$in: req.body.id}}, {new: true})
-  .then((category1) => {
-    console.log(category1);
-    Category.find({})
-    .then((category) => {
-      res.json(category);
-    }).catch((err) => {
+exports.CategoryMultipleDelete = (req, res) => {
+  Category.deleteMany({ _id: { $in: req.body.id } }, { new: true })
+    .then((category1) => {
+      console.log(category1);
+      Category.find({})
+        .then((category) => {
+          res.json(category);
+        }).catch((err) => {
+          console.log(err.message)
+        });
+    }, err => console.log(err.message)).catch((err) => {
       console.log(err.message)
     });
-  },err => console.log(err.message)).catch((err) => {
-    console.log(err.message)
-  });
 }

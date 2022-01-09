@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var multer = require('multer');
 
+const User = require('../models/user');
 const Testonomial = require('../models/testnomial');
 const { TestnomialValidation } = require('../validation/validation');
 const { type } = require('os');
@@ -18,11 +19,16 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).array('image', 10);
 
 exports.Testonomial = (req, res) => {
+  const id = req.user._id
+
   Testonomial.find({})
     .then((testnomial) => {
-      // res.statusCode = 200;
-      // res.setHeader('Content-Type', 'application/json');
-      res.render('testnomial', { testnomial: testnomial });
+      User.find({ _id: id })
+        .then((profile) => {
+          res.render('testnomial', { testnomial: testnomial, profile: profile });
+        }).catch((err) => {
+          console.log(err.message)
+        });
     }).catch((err) => {
       console.log(err.message)
     });
