@@ -119,10 +119,16 @@ exports.PortfolioDelete = (req, res) => {
 };
 
 exports.PortfolioView = (req, res) => {
+  const id = req.user._id
   Portfolio.find({ _id: req.query.id })
     .then((portfolio) => {
-
-      res.render('portfolio-view', { portfolio: portfolio });
+      User.find({ _id: id })
+      .then((profile) => {
+        res.render('portfolio-view', { portfolio: portfolio, profile: profile });
+      }).catch((err) => {
+        console.log(err.message)
+      });
+      // res.render('portfolio-view', { portfolio: portfolio });
     }).catch((err) => {
       console.log(err.message)
     });
@@ -130,10 +136,16 @@ exports.PortfolioView = (req, res) => {
 };
 
 exports.PortfolioEdit = (req, res) => {
+  const id = req.user._id
   Portfolio.find({ _id: req.query.id })
     .then((portfolio) => {
-
-      res.render('portfolio-edit', { portfolio: portfolio });
+      User.find({ _id: id })
+      .then((profile) => {
+        res.render('portfolio-edit', { portfolio: portfolio, profile: profile });
+      }).catch((err) => {
+        console.log(err.message)
+      });
+      // res.render('portfolio-edit', { portfolio: portfolio });
     }).catch((err) => {
       console.log(err.message)
     });

@@ -40,18 +40,32 @@ exports.EnquiryPost = (req, res) => {
 };
 
 exports.EnquiryView = (req, res) => {
+  const id = req.user._id
   Enquiry.find({ _id: req.query.id })
     .then((enquiry) => {
-      res.render('enquiry-view', { enquiry: enquiry });
+      User.find({ _id: id })
+        .then((profile) => {
+          res.render('enquiry-view', { enquiry: enquiry, profile: profile });
+        }).catch((err) => {
+          console.log(err.message)
+        });
+      // res.render('enquiry-view', { enquiry: enquiry });
     }).catch((err) => {
       console.log(err.message)
     });
 };
 
 exports.EnquiryEdit = (req, res) => {
+  const id = req.user._id
   Enquiry.find({ _id: req.query.id })
     .then((enquiry) => {
-      res.render('enquiry-edit', { enquiry: enquiry });
+      User.find({ _id: id })
+        .then((profile) => {
+          res.render('enquiry-edit', { enquiry: enquiry, profile: profile });
+        }).catch((err) => {
+          console.log(err.message)
+        });
+        // res.render('enquiry-edit', { enquiry: enquiry });
     }).catch((err) => {
       console.log(err.message)
     });

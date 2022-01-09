@@ -80,18 +80,33 @@ exports.CategoryDelete = (req, res) => {
 
 exports.CategoryView = (req, res) => {
   console.log(req.query.id)
+  const id = req.user._id
+
   Category.find({ _id: req.query.id })
     .then((category) => {
-      res.render('category-view', { category: category });
+      // res.render('category-view', { category: category });
+      User.find({ _id: id })
+        .then((profile) => {
+          res.render('category-view', { category: category, profile: profile });
+        }).catch((err) => {
+          console.log(err.message)
+        });
     }).catch((err) => {
       console.log(err.message)
     });
 };
 
 exports.CategoryEdit = (req, res) => {
+  const id = req.user._id
+
   Category.find({ _id: req.query.id })
     .then((category) => {
-      res.render('category-edit', { category: category });
+      User.find({ _id: id })
+        .then((profile) => {
+          res.render('category-edit', { category: category, profile: profile });
+        }).catch((err) => {
+          console.log(err.message)
+        });
     }).catch((err) => {
       console.log(err.message)
     });

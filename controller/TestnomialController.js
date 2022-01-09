@@ -112,9 +112,16 @@ exports.TestonomialDelete = (req, res) => {
 };
 
 exports.TestonomialView = (req, res) => {
+  const id = req.user._id
   Testonomial.find({ _id: req.query.id })
     .then((testnomial) => {
-      res.render('testnomial-view', { testnomial: testnomial });
+      User.find({ _id: id })
+        .then((profile) => {
+          res.render('testnomial-view', { testnomial: testnomial, profile: profile });
+        }).catch((err) => {
+          console.log(err.message)
+        });
+        // res.render('testnomial-view', { testnomial: testnomial });
     }).catch((err) => {
       console.log(err.message)
     });
@@ -122,10 +129,16 @@ exports.TestonomialView = (req, res) => {
 };
 
 exports.TestonomialEdit = (req, res) => {
+  const id = req.user._id
   Testonomial.find({ _id: req.query.id })
     .then((testnomial) => {
-
-      res.render('testnomial-edit', { testnomial: testnomial });
+      User.find({ _id: id })
+      .then((profile) => {
+        res.render('testnomial-edit', { testnomial: testnomial, profile: profile });
+      }).catch((err) => {
+        console.log(err.message)
+      });
+      // res.render('testnomial-edit', { testnomial: testnomial });
     }).catch((err) => {
       console.log(err.message)
     });
